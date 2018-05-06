@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "warehouse 1",
+    "address": "1234 Bellvedere Way",
+    "city": "Tom Collins",
+    "state": "TX",
+    "zip": "79707"
+  },
+  {
+    "id": 2,
+    "name": "warehouse 2",
+    "address": "665 1st St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "90210"
+  }
+]
