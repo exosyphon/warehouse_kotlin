@@ -51,7 +51,7 @@ dependencies {
 			'org.jsoup:jsoup:1.11.2'
 	)
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('com.h2database:h2')
+	runtime('org.postgresql:postgresql')
 	testCompile(
 			'org.springframework.boot:spring-boot-starter-test',
 			"com.google.code.gson:gson:2.8.0"

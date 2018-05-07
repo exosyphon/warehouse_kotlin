@@ -13,6 +13,6 @@ class Warehouse(
         var state: String = "",
         var zip: String = "",
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy=GenerationType.IDENTITY)
         var id: Long = 0
 )
