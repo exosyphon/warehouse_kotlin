@@ -52,6 +52,7 @@ dependencies {
 	)
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('org.postgresql:postgresql')
+	runtime('com.h2database:h2')
 	testCompile(
 			'org.springframework.boot:spring-boot-starter-test',
 			"com.google.code.gson:gson:2.8.0"

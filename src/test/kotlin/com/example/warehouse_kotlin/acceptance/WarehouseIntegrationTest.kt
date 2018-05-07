@@ -2,7 +2,7 @@ package com.example.warehouse_kotlin.acceptance
 
 import com.example.warehouse_kotlin.models.Warehouse
 import com.example.warehouse_kotlin.repositories.WarehouseRepository
-import testutilities.TestUtils
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import testutilities.TestUtils
+import javax.persistence.EntityManager
 
 @RunWith(SpringJUnit4ClassRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,6 +28,9 @@ class WarehouseIntegrationTest {
     @Autowired
     private lateinit var warehouseRepository: WarehouseRepository
 
+    @Autowired
+    private lateinit var entityManager: EntityManager
+
     @Before
     fun setup() {
         warehouseRepository.saveAll(
@@ -36,10 +41,19 @@ class WarehouseIntegrationTest {
         )
     }
 
+    @After
+    fun tearDown() {
+        warehouseRepository.deleteAll()
+    }
+
     @Test
     fun testIndex() {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk)
-                .andExpect(content().json(TestUtils.readJsonFixture("warehouse-response/get_warehouses.json"), true))
+        val perform = mockMvc.perform(get("/"))
+
+        val findAll : List<Warehouse> = warehouseRepository.findAll() as List<Warehouse>
+        val values: Map<String, Any> = mapOf(Pair("id1", findAll[0].id), Pair("id2", findAll[1].id))
+
+        perform.andExpect(status().isOk)
+                .andExpect(content().json(TestUtils.readJsonFixture("warehouse-response/get_warehouses.json", values), true))
     }
 }

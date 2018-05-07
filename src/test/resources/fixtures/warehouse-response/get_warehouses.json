@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": ==id1==,
     "name": "warehouse 1",
     "address": "1234 Bellvedere Way",
     "city": "Tom Collins",
@@ -8,7 +8,7 @@
     "zip": "79707"
   },
   {
-    "id": 2,
+    "id": ==id2==,
     "name": "warehouse 2",
     "address": "665 1st St",
     "city": "San Francisco",
