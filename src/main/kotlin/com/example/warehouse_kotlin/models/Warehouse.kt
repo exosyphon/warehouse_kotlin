@@ -6,7 +6,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Warehouse(
+data class Warehouse(
         var name: String = "",
         var address: String = "",
         var city: String = "",
