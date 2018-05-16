@@ -15,7 +15,7 @@ class WarehouseServiceTest {
     private lateinit var mockWarehouseRepository: WarehouseRepository
 
     @Test
-    fun findAll() {
+    fun `findAll should return list of warehouses from repo`() {
         val warehouses = mutableListOf(Warehouse())
         Mockito.`when`(mockWarehouseRepository.findAll()).thenReturn(warehouses)
         assertEquals(WarehouseService(mockWarehouseRepository).findAll(), warehouses)

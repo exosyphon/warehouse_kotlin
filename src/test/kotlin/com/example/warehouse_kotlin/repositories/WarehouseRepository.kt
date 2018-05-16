@@ -16,7 +16,7 @@ class WarehouseRepositoryTest {
     private lateinit var warehouseRepository: WarehouseRepository
 
     @Test
-    fun findAll() {
+    fun `findAll should return list of warehouses from database`() {
         warehouseRepository.save(Warehouse())
 
         val actual = warehouseRepository.findAll()

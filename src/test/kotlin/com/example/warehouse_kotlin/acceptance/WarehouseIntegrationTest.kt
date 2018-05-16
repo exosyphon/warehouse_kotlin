@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import testutilities.TestUtils
-import javax.persistence.EntityManager
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -27,9 +26,6 @@ class WarehouseIntegrationTest {
 
     @Autowired
     private lateinit var warehouseRepository: WarehouseRepository
-
-    @Autowired
-    private lateinit var entityManager: EntityManager
 
     @BeforeEach
     fun setup() {
