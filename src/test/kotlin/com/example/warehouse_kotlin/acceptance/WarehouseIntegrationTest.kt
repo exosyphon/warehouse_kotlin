@@ -2,14 +2,14 @@ package com.example.warehouse_kotlin.acceptance
 
 import com.example.warehouse_kotlin.models.Warehouse
 import com.example.warehouse_kotlin.repositories.WarehouseRepository
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import testutilities.TestUtils
 import javax.persistence.EntityManager
 
-@RunWith(SpringJUnit4ClassRunner::class)
+@ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class WarehouseIntegrationTest {
@@ -31,7 +31,7 @@ class WarehouseIntegrationTest {
     @Autowired
     private lateinit var entityManager: EntityManager
 
-    @Before
+    @BeforeEach
     fun setup() {
         warehouseRepository.saveAll(
                 listOf(
@@ -41,13 +41,13 @@ class WarehouseIntegrationTest {
         )
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         warehouseRepository.deleteAll()
     }
 
     @Test
-    fun testIndex() {
+    fun `index should return json list of warehouses`() {
         val perform = mockMvc.perform(get("/"))
 
         val findAll : List<Warehouse> = warehouseRepository.findAll() as List<Warehouse>

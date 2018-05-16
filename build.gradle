@@ -35,10 +35,13 @@ compileTestKotlin {
 	}
 }
 
+test {
+	useJUnitPlatform()
+}
+
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile(
@@ -54,7 +57,12 @@ dependencies {
 	runtime('org.postgresql:postgresql')
 	runtime('com.h2database:h2')
 	testCompile(
-			'org.springframework.boot:spring-boot-starter-test',
-			"com.google.code.gson:gson:2.8.0"
+			"com.google.code.gson:gson:2.8.0",
+			"org.mockito:mockito-junit-jupiter:2.18.0"
 	)
+	testCompile('org.springframework.boot:spring-boot-starter-test') {
+		exclude module: 'junit'
+	}
+	testImplementation('org.junit.jupiter:junit-jupiter-api')
+	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 }
