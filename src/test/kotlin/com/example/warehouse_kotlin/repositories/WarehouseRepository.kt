@@ -2,6 +2,8 @@ package com.example.warehouse_kotlin.repositories
 
 import com.example.warehouse_kotlin.models.Warehouse
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,12 +17,16 @@ class WarehouseRepositoryTest {
     @Autowired
     private lateinit var warehouseRepository: WarehouseRepository
 
-    @Test
-    fun `findAll should return list of warehouses from database`() {
-        warehouseRepository.save(Warehouse())
+    @Nested
+    @DisplayName("findAll")
+    inner class FindAll {
+        @Test
+        fun `should return list of warehouses from database`() {
+            warehouseRepository.save(Warehouse())
 
-        val actual = warehouseRepository.findAll()
+            val actual = warehouseRepository.findAll()
 
-        assertEquals(1, actual.count())
+            assertEquals(1, actual.count())
+        }
     }
 }

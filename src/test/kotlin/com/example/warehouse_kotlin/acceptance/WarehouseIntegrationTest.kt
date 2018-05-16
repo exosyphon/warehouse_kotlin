@@ -2,9 +2,7 @@ package com.example.warehouse_kotlin.acceptance
 
 import com.example.warehouse_kotlin.models.Warehouse
 import com.example.warehouse_kotlin.repositories.WarehouseRepository
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -42,14 +40,18 @@ class WarehouseIntegrationTest {
         warehouseRepository.deleteAll()
     }
 
-    @Test
-    fun `index should return json list of warehouses`() {
-        val perform = mockMvc.perform(get("/"))
+    @Nested
+    @DisplayName("index")
+    inner class Index {
+        @Test
+        fun `should return json list of warehouses`() {
+            val perform = mockMvc.perform(get("/"))
 
-        val findAll : List<Warehouse> = warehouseRepository.findAll() as List<Warehouse>
-        val values: Map<String, Any> = mapOf(Pair("id1", findAll[0].id), Pair("id2", findAll[1].id))
+            val findAll: List<Warehouse> = warehouseRepository.findAll() as List<Warehouse>
+            val values: Map<String, Any> = mapOf(Pair("id1", findAll[0].id), Pair("id2", findAll[1].id))
 
-        perform.andExpect(status().isOk)
-                .andExpect(content().json(TestUtils.readJsonFixture("warehouse-response/get_warehouses.json", values), true))
+            perform.andExpect(status().isOk)
+                    .andExpect(content().json(TestUtils.readJsonFixture("warehouse-response/get_warehouses.json", values), true))
+        }
     }
 }
