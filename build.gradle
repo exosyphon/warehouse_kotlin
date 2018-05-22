@@ -51,11 +51,11 @@ dependencies {
 			"org.jetbrains.kotlin:kotlin-stdlib-jdk8",
 			'org.jetbrains.kotlin:kotlin-reflect',
 			'commons-io:commons-io:2.5',
-			'org.jsoup:jsoup:1.11.2'
+			'org.jsoup:jsoup:1.11.2',
+			'org.flywaydb:flyway-core'
 	)
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('org.postgresql:postgresql')
-	runtime('com.h2database:h2')
 	testCompile(
 			"com.google.code.gson:gson:2.8.0",
 			"org.mockito:mockito-junit-jupiter:2.18.0"
