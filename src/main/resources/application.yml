@@ -1,0 +1,2 @@
+spring.datasource.url: jdbc:postgresql://localhost:5432/pivotal
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
