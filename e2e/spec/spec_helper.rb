@@ -21,9 +21,17 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
-  config.after(:all) do
-    DatabaseCleaner.strategy = :truncation
+  config.before(:suite) do
+    $backend = Application.new('backend', 'cd ../; ./gradlew bootrun 1>/dev/null', 'curl http://localhost:8080/actuator/health')
+    $backend.start
+  end
+
+  config.after(:suite) do
+    DatabaseCleaner.strategy = :truncation, {except: %w[flyway_schema_history]}
+    DatabaseCleaner.clean_with(:truncation, {except: %w[flyway_schema_history]})
     DatabaseCleaner.clean
+
+    $backend.stop
   end
 end
 
