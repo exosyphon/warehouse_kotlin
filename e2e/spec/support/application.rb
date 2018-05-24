@@ -12,7 +12,7 @@ class Application
   end
 
   def stop
-    Process.kill(9, pid)
+    Process.kill(9, -pid)
   end
 
   private

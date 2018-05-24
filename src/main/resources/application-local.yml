@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pivotal
+
+server:
+  port: 8080
+
+frontend:
+  url: http://localhost:8081
