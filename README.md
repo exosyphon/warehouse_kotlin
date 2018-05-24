@@ -12,10 +12,8 @@
  * cd e2e; gem install bundler; bundle
  
 # Running unit tests
- * ./gradlew test
+ * ./gradlew clean test
  * cd frontend; yarn test
  
 # Running E2E tests
- * ./gradlew bootrun
- * cd frontend; yarn serve
  * cd e2e; rspec
