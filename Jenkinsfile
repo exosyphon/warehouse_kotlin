@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''netstat -l
-
+        sh '''
 ./gradlew clean build'''
       }
     }
