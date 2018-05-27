@@ -29,8 +29,8 @@ class WarehouseIntegrationTest {
     fun setup() {
         warehouseRepository.saveAll(
                 listOf(
-                        Warehouse("warehouse 1", "1234 Bellvedere Way", "Tom Collins", "TX", "79707", 1L),
-                        Warehouse("warehouse 2", "665 1st St", "San Francisco", "CA", "90210", 2L)
+                        Warehouse("warehouse 1", "1234 Bellvedere Way", "Tom Collins", "TX", "79707"),
+                        Warehouse("warehouse 2", "665 1st St", "San Francisco", "CA", "90210")
                 )
         )
     }
