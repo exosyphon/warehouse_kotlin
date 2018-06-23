@@ -1,7 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/pivotal?user=postgres&password=postgres
-
   jpa:
     properties:
       hibernate:
