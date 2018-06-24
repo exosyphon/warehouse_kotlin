@@ -11,7 +11,7 @@ archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
       steps {
         echo 'testing'
       }
-    }
+    },
     stage('E2E') {
       steps {
         echo 'E2E'ing'
