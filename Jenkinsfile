@@ -2,7 +2,7 @@ pipeline {
   agent none
   stages {
     stage('Build') {
-      agent { label 'yuna' }
+      agent any
       steps {
         wrapCommands(
                         {
@@ -13,19 +13,19 @@ pipeline {
       }
     }
     stage('Test') {
-      agent { label 'yuna' }
+      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent { label 'yuna' }
+      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent { label 'yuna' }
+      agent any
       steps {
                 wrapCommands(
                 {
@@ -47,7 +47,7 @@ pipeline {
       }
     }
     stage('DeployStaging') {
-        agent { label 'yuna' }
+        agent any
         when {
           environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
@@ -66,7 +66,7 @@ pipeline {
       }
     }
     stage('DeployProduction') {
-        agent { label 'yuna' }
+        agent any
         when {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
