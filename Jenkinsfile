@@ -38,7 +38,6 @@ pipeline {
 
 node {
     stage('RequestDeployStaging') {
-      agent none
       steps {
         script {
         env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
@@ -46,7 +45,6 @@ node {
       }
     }
     stage('DeployStaging') {
-    agent any
         when {
           environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
@@ -56,7 +54,6 @@ node {
         }
     }
     stage('RequestDeployProduction') {
-      agent none
       steps {
               script {
   env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
@@ -64,7 +61,6 @@ node {
       }
     }
     stage('DeployProduction') {
-    agent any
         when {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
