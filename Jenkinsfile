@@ -9,8 +9,7 @@ pipeline {
         wrapCommands(
                         {
                         sh '''./gradlew clean assemble'''
-                        archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
-                        stash include: '**/build/libs/**/*.jar', name: 'app'},
+                        archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true},
   "http://autobotmonitor.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
 )
       }
@@ -54,7 +53,7 @@ pipeline {
               environment name: 'DEPLOY_TO_STAGING', value: 'true'
             }
             steps {
-              unstash 'app'
+            copyArtifacts filter: '**/build/libs/*.jar', fingerprintArtifacts: true, projectName: 'Pipeline', selector: specific(env.BUILD_NUMBER)
               echo 'Deploying to Staging'
             }
         }
@@ -72,7 +71,7 @@ pipeline {
               environment name: 'DEPLOY_TO_PRODUCTION', value: 'true'
             }
             steps {
-              unstash 'app'
+            copyArtifacts filter: '**/build/libs/*.jar', fingerprintArtifacts: true, projectName: 'Pipeline', selector: specific(env.BUILD_NUMBER)
               sh '''ls'''
               sh '''ls build/libs'''
               echo 'Deploying to Production'
