@@ -4,11 +4,13 @@ pipeline {
     stage('Build') {
       steps {
       postToBuildMonitor("STARTED", "SUCCESS")
-      try {
-sh '''./gradlew clean assemble'''
-archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
-      } catch (e) {
-        currentBuild.result = 'FAIL'
+      script {
+          try {
+    sh '''./gradlew clean assemble'''
+    archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
+          } catch (e) {
+            currentBuild.result = 'FAIL'
+          }
       }
       postToBuildMonitor("FINALIZED", currentBuild.result)
       }
