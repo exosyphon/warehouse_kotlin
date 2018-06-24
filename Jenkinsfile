@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
       agent any
@@ -41,8 +41,7 @@ pipeline {
       steps {
         script {
         env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes',
-                                                                                       parameters: [booleanParam(defaultValue: true,
-                                                                                       description: 'Deploy this build?',name: 'Yes?')])
+                                                                                       parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
         }
       }
     }
@@ -60,8 +59,7 @@ pipeline {
       steps {
               script {
   env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes',
-                                                      parameters: [booleanParam(defaultValue: true,
-                                                      description: 'Deploy this build?',name: 'Yes?')])
+                                                      parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
       }
     }
