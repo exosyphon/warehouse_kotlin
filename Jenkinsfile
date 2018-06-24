@@ -2,30 +2,27 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      agent any
       steps {
         wrapCommands(
                         {
                         sh '''./gradlew clean assemble'''
-                        archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true},
+                        archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
+                        stash include: '**/build/libs/**/*.jar', name: 'app'},
   "http://autobotmonitor.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
 )
       }
     }
     stage('Test') {
-      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent any
       steps {
                 wrapCommands(
                 {
@@ -46,11 +43,11 @@ pipeline {
       }
     }
     stage('DeployStaging') {
-        agent any
         when {
           environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
         steps {
+        unstash 'app'
           echo 'Deploying to Staging'
         }
     }
@@ -64,11 +61,11 @@ pipeline {
       }
     }
     stage('DeployProduction') {
-        agent any
         when {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
         steps {
+        unstash 'app'
           echo 'Deploying to Production'
         }
     }
