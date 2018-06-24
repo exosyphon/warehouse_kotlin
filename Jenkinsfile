@@ -31,6 +31,32 @@ pipeline {
 )
       }
     }
+    stage('RequestDeployStaging') {
+      steps {
+        env.DEPLOY_TO_STAGING = input message: 'Deploy to Staging?', parameters: [choice(name: 'Deploy', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
+      }
+    }
+    stage('DeployStaging') {
+        when {
+          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
+        }
+        steps {
+          echo 'Deploying to Staging'
+        }
+    }
+    stage('RequestDeployProduction') {
+      steps {
+        env.DEPLOY_TO_PRODUCTION = input message: 'Deploy to Production?', parameters: [choice(name: 'Deploy', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
+      }
+    }
+    stage('DeployStaging') {
+        when {
+          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
+        }
+        steps {
+          echo 'Deploying to Production'
+        }
+    }
   }
 }
 
