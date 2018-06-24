@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
       agent any
@@ -13,19 +13,16 @@ pipeline {
       }
     }
     stage('Test') {
-      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent any
       steps {
                 wrapCommands(
                 {
@@ -40,18 +37,13 @@ pipeline {
       agent none
       steps {
         script {
-        env.DEPLOY_TO_STAGING =  input {
-                                                         message "Deploy to Staging?"
-                                                         ok "y"
-                                                         parameters {
-                                                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
-                                                         }
-                                                     }
+        env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes',
+                                                                                       parameters: [booleanParam(defaultValue: true,
+                                                                                       description: 'Deploy this build?',name: 'Yes?')])
         }
       }
     }
     stage('DeployStaging') {
-        agent any
         when {
           environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
@@ -63,18 +55,13 @@ pipeline {
       agent none
       steps {
               script {
-  env.DEPLOY_TO_PRODUCTION =  input {
-                                                            message "Deploy to Production?"
-                                                            ok "y"
-                                                            parameters {
-                                                                string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
-                                                            }
-                                                        }
+  env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes',
+                                                      parameters: [booleanParam(defaultValue: true,
+                                                      description: 'Deploy this build?',name: 'Yes?')])
       }
       }
     }
     stage('DeployProduction') {
-        agent any
         when {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
