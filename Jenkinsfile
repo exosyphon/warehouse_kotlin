@@ -3,17 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-      postToBuildMonitor("STARTED", "SUCCESS")
-      script {
-          currentBuild.result = 'SUCCESS'
-          try {
-    sh '''./gradlew clean assemble'''
-    archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
-          } catch (e) {
-            currentBuild.result = 'FAIL'
-          }
-      }
-      postToBuildMonitor("FINALIZED", currentBuild.result)
+        wrapCommands()
       }
     }
     stage('Test') {
@@ -32,6 +22,20 @@ pipeline {
       }
     }
   }
+}
+
+def wrapCommands() {
+        postToBuildMonitor("STARTED", "SUCCESS")
+        script {
+            currentBuild.result = 'SUCCESS'
+            try {
+                sh '''./gradlew clean assemble'''
+                archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
+            } catch (e) {
+              currentBuild.result = 'FAIL'
+            }
+        }
+        postToBuildMonitor("FINALIZED", currentBuild.result)
 }
 
 def postToBuildMonitor(phase, isSuccessful) {
