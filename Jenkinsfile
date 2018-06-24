@@ -70,7 +70,8 @@ pipeline {
         }
         steps {
           unstash 'app'
-          ls
+          sh '''ls'''
+          sh '''ls build/libs'''
           echo 'Deploying to Production'
         }
     }
