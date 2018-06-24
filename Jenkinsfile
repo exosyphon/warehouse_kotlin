@@ -38,12 +38,13 @@ def wrapCommands(commands, jobUrl) {
         script {
             currentBuild.result = 'SUCCESS'
             try {
-                commands.call()
+              commands.call()
             } catch (e) {
-              currentBuild.result = 'FAIL'
+               currentBuild.result = 'FAIL'
+            } finally {
+               postToBuildMonitor("FINALIZED", currentBuild.result, jobUrl)
             }
         }
-        postToBuildMonitor("FINALIZED", currentBuild.result, jobUrl)
 }
 
 def postToBuildMonitor(phase, isSuccessful, jobUrl) {
