@@ -41,14 +41,15 @@ pipeline {
       agent none
       steps {
         script {
-        env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
+        env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
+echo env.DEPLOY_TO_STAGING
       }
     }
     }
     stage('DeployStaging') {
         agent any
         when {
-          environment name: 'DEPLOY_TO_STAGING', value: 'Yes'
+          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
         steps {
           unstash 'app'
@@ -59,14 +60,14 @@ pipeline {
       agent none
       steps {
               script {
-  env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
+  env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
       }
     }
     stage('DeployProduction') {
         agent any
         when {
-          environment name: 'DEPLOY_TO_PRODUCTION', value: 'Yes'
+          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
         steps {
           unstash 'app'
