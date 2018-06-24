@@ -35,7 +35,7 @@ pipeline {
     }
     stage('DeployStaging') {
       steps {
-        build job: 'Deploy', parameters: [string(name: 'SHA', value: ${GIT_COMMIT})]
+        build job: 'Deploy', parameters: [string(name: 'SHA', value: ${env.GIT_COMMIT})]
       }
     }
   }
