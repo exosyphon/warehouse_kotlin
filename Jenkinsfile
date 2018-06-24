@@ -1,7 +1,8 @@
 pipeline {
-  agent any
+  agent none
   stages {
     stage('Build') {
+      agent { label 'master' }
       steps {
         wrapCommands(
                         {
@@ -13,16 +14,19 @@ pipeline {
       }
     }
     stage('Test') {
+      agent { label 'master' }
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
+      agent { label 'master' }
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
+      agent { label 'master' }
       steps {
                 wrapCommands(
                 {
@@ -33,33 +37,42 @@ pipeline {
 )
       }
     }
-  }
-}
-
-node {
     stage('RequestDeployStaging') {
+      agent none
+      steps {
         script {
         env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
     }
     stage('DeployStaging') {
-        if(env.DEPLOY_TO_STAGING == 'Yes') {
-        unstash 'app'
+        agent any
+        when {
+          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
+        }
+        steps {
+          unstash 'app'
           echo 'Deploying to Staging'
         }
     }
     stage('RequestDeployProduction') {
+      agent none
+      steps {
               script {
   env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
-
+      }
     }
     stage('DeployProduction') {
-        if(env.DEPLOY_TO_PRODUCTION == 'Yes') {
-        unstash 'app'
+        agent any
+        when {
+          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
+        }
+        steps {
+          unstash 'app'
           echo 'Deploying to Production'
         }
     }
+  }
 }
 
 def wrapCommands(commands, jobUrl) {
