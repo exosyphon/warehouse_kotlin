@@ -1,8 +1,7 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
-      agent any
       steps {
         wrapCommands(
                         {
@@ -14,19 +13,16 @@ pipeline {
       }
     }
     stage('Test') {
-      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent any
       steps {
                 wrapCommands(
                 {
@@ -36,44 +32,6 @@ pipeline {
                 "http://autobotmonitor.cfapps.io/projects/0a389362-c1da-4c6d-821b-6ca396d97f2a/status"
 )
       }
-    }
-    stage('RequestDeployStaging') {
-      agent none
-      steps {
-        script {
-        env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Confirm', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
-      }
-    }
-    }
-    stage('DeployStaging') {
-        agent any
-        when {
-          environment name: 'DEPLOY_TO_STAGING', value: 'true'
-        }
-        steps {
-          unstash 'app'
-          echo 'Deploying to Staging'
-        }
-    }
-    stage('RequestDeployProduction') {
-      agent none
-      steps {
-              script {
-  env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Confirm', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
-      }
-      }
-    }
-    stage('DeployProduction') {
-        agent any
-        when {
-          environment name: 'DEPLOY_TO_PRODUCTION', value: 'true'
-        }
-        steps {
-          unstash 'app'
-          sh '''ls'''
-          sh '''ls build/libs'''
-          echo 'Deploying to Production'
-        }
     }
   }
 }
