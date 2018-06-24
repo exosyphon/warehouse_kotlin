@@ -33,7 +33,13 @@ pipeline {
       }
     }
     stage('DeployStaging') {
-         input message: "Deploy to Staging?"
+         input {
+                         message "Deploy to Staging?"
+                         ok "y"
+                         parameters {
+                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
+                         }
+                     }
           milestone()
           lock('Deployment Staging') {
           node {
@@ -42,7 +48,13 @@ pipeline {
         }
     }
     stage('DeployProduction') {
-         input message: "Deploy to Production?"
+         input {
+                         message "Deploy to Production?"
+                         ok "y"
+                         parameters {
+                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
+                         }
+                     }
           milestone()
           lock('Deployment Production') {
           node {
