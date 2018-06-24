@@ -38,33 +38,24 @@ pipeline {
 
 node {
     stage('RequestDeployStaging') {
-      steps {
         script {
         env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
-        }
       }
     }
     stage('DeployStaging') {
-        when {
-          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
-        }
-        steps {
+        if(env.DEPLOY_TO_STAGING == 'Yes') {
         unstash 'app'
           echo 'Deploying to Staging'
         }
     }
     stage('RequestDeployProduction') {
-      steps {
               script {
   env.DEPLOY_TO_PRODUCTION = input(message: 'Deploy to Production?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
-      }
+
     }
     stage('DeployProduction') {
-        when {
-          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
-        }
-        steps {
+        if(env.DEPLOY_TO_PRODUCTION == 'Yes') {
         unstash 'app'
           echo 'Deploying to Production'
         }
