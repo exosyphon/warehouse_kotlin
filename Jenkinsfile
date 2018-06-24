@@ -1,8 +1,6 @@
 pipeline {
   agent any
   stages {
-
-    agent any
     stage('Build') {
       steps {
         wrapCommands(
