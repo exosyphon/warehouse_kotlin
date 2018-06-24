@@ -69,7 +69,7 @@ pipeline {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'true'
         }
         steps {
-          //unstash 'app'
+          unstash 'app'
           sh '''ls'''
           sh '''ls build/libs'''
           echo 'Deploying to Production'
