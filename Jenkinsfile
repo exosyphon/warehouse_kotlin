@@ -5,7 +5,7 @@ pipeline {
       steps {
         wrapCommands(
                         {
-                         exit 1
+                         sh '''exit 1'''
                         sh '''./gradlew clean assemble'''
                         archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true},
   "http://autobotmonitor.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
