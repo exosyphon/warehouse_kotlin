@@ -48,7 +48,7 @@ pipeline {
     stage('DeployStaging') {
         agent any
         when {
-          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
+          environment name: 'DEPLOY_TO_STAGING', value: 'Yes'
         }
         steps {
           unstash 'app'
@@ -66,10 +66,11 @@ pipeline {
     stage('DeployProduction') {
         agent any
         when {
-          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
+          environment name: 'DEPLOY_TO_PRODUCTION', value: 'Yes'
         }
         steps {
           unstash 'app'
+          ls
           echo 'Deploying to Production'
         }
     }
