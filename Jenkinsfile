@@ -41,7 +41,9 @@ def wrapCommands(commands, jobUrl) {
               commands.call()
             } catch (e) {
                currentBuild.result = 'FAIL'
+               println(currentBuild.result + " &&&&&&&&&&")
             } finally {
+               println(currentBuild.result + " **********")
                postToBuildMonitor("FINALIZED", currentBuild.result, jobUrl)
             }
         }
