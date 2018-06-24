@@ -5,6 +5,7 @@ pipeline {
       steps {
       postToBuildMonitor("STARTED", "SUCCESS")
       script {
+          currentBuild.result = 'SUCCESS'
           try {
     sh '''./gradlew clean assemble'''
     archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
