@@ -1,8 +1,8 @@
 pipeline {
-  agent any
+  agent none
   stages {
     stage('Build') {
-      agent any
+      agent { label: 'build' }
       steps {
         wrapCommands(
                         {
@@ -13,16 +13,19 @@ pipeline {
       }
     }
     stage('Test') {
+      agent { label: 'build' }
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
+      agent { label: 'build' }
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
+      agent { label: 'build' }
       steps {
                 wrapCommands(
                 {
@@ -44,6 +47,7 @@ pipeline {
       }
     }
     stage('DeployStaging') {
+        agent { label: 'build' }
         when {
           environment name: 'DEPLOY_TO_STAGING', value: 'yes'
         }
@@ -62,6 +66,7 @@ pipeline {
       }
     }
     stage('DeployProduction') {
+        agent { label: 'build' }
         when {
           environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
         }
