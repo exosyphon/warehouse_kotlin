@@ -1,8 +1,7 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
-      agent any
       steps {
         wrapCommands(
                         {
@@ -13,19 +12,16 @@ pipeline {
       }
     }
     stage('Test') {
-      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent any
       steps {
                 wrapCommands(
                 {
@@ -36,34 +32,22 @@ pipeline {
 )
       }
     }
-    stage('RequestDeployStaging') {
-      agent none
-      steps {
-        env.DEPLOY_TO_STAGING = input message: 'Deploy to Staging?'
-      }
-    }
     stage('DeployStaging') {
-        agent any
-        when {
-          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
+         input "Deploy to Staging?"
+          milestone()
+          lock('Deployment Staging') {
+          node {
+              echo "Deploying to Staging"
+          }
         }
-        steps {
-          echo 'Deploying to Staging'
-        }
-    }
-    stage('RequestDeployProduction') {
-      agent none
-      steps {
-        env.DEPLOY_TO_PRODUCTION = input message: 'Deploy to Production?'
-      }
     }
     stage('DeployProduction') {
-        agent any
-        when {
-          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
-        }
-        steps {
-          echo 'Deploying to Production'
+         input "Deploy to Production?"
+          milestone()
+          lock('Deployment Production') {
+          node {
+              echo "Deploying to Production"
+          }
         }
     }
   }
