@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('Lower environment build/test/deploy') {
     agent any
+    stages {
     stage('Build') {
       steps {
         wrapCommands(
@@ -34,6 +35,7 @@ pipeline {
                 "http://autobotmonitor.cfapps.io/projects/0a389362-c1da-4c6d-821b-6ca396d97f2a/status"
 )
       }
+    }
     }
     }
     stage('Deploy to Higher environments') {
