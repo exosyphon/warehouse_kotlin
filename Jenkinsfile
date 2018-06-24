@@ -33,7 +33,7 @@ pipeline {
       }
     }
     stage('DeployStaging') {
-         input "Deploy to Staging?"
+         input message: "Deploy to Staging?"
           milestone()
           lock('Deployment Staging') {
           node {
@@ -42,7 +42,7 @@ pipeline {
         }
     }
     stage('DeployProduction') {
-         input "Deploy to Production?"
+         input message: "Deploy to Production?"
           milestone()
           lock('Deployment Production') {
           node {
