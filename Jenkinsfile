@@ -1,7 +1,8 @@
 pipeline {
-  agent any
+  agent none
   stages {
     stage('Build') {
+      agent any
       steps {
         wrapCommands(
                         {
@@ -12,16 +13,19 @@ pipeline {
       }
     }
     stage('Test') {
+      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
+      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
+      agent any
       steps {
                 wrapCommands(
                 {
@@ -32,34 +36,46 @@ pipeline {
 )
       }
     }
+    stage('RequestDeployStaging') {
+      agent none
+      steps {
+        def DEPLOY_TO_STAGING =  input {
+                                                         message "Deploy to Staging?"
+                                                         ok "y"
+                                                         parameters {
+                                                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
+                                                         }
+                                                     }
+      }
+    }
     stage('DeployStaging') {
-         input {
-                         message "Deploy to Staging?"
-                         ok "y"
-                         parameters {
-                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
-                         }
-                     }
-          milestone()
-          lock('Deployment Staging') {
-          node {
-              echo "Deploying to Staging"
-          }
+        agent any
+        when {
+          environment name: 'DEPLOY_TO_STAGING', value: 'yes'
+        }
+        steps {
+          echo 'Deploying to Staging'
         }
     }
+    stage('RequestDeployProduction') {
+      agent none
+      steps {
+        def DEPLOY_TO_PRODUCTION =  input {
+                                                            message "Deploy to Production?"
+                                                            ok "y"
+                                                            parameters {
+                                                                string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
+                                                            }
+                                                        }
+      }
+    }
     stage('DeployProduction') {
-         input {
-                         message "Deploy to Production?"
-                         ok "y"
-                         parameters {
-                             string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
-                         }
-                     }
-          milestone()
-          lock('Deployment Production') {
-          node {
-              echo "Deploying to Production"
-          }
+        agent any
+        when {
+          environment name: 'DEPLOY_TO_PRODUCTION', value: 'yes'
+        }
+        steps {
+          echo 'Deploying to Production'
         }
     }
   }
