@@ -2,7 +2,7 @@ pipeline {
   agent none
   stages {
     stage('Build') {
-      agent { label 'master' }
+      agent any
       steps {
         wrapCommands(
                         {
@@ -14,19 +14,19 @@ pipeline {
       }
     }
     stage('Test') {
-      agent { label 'master' }
+      agent any
       steps {
       echo 'testing'
       }
     }
     stage('E2E') {
-      agent { label 'master' }
+      agent any
       steps {
         echo 'E2Eing'
       }
     }
     stage('DeployDev') {
-      agent { label 'master' }
+      agent any
       steps {
                 wrapCommands(
                 {
