@@ -5,13 +5,14 @@ pipeline {
       steps {
       def buildJobUrl = "http://autobotmonitor.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
       postToBuildMonitor("STARTED", "SUCCESS", buildJobUrl)
+      def result = "SUCCESS"
       try {
 sh '''./gradlew clean assemble'''
 archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true
-      } catch(e) {
-      postToBuildMonitor("COMPLETED", "FAIL", buildJobUrl)
+      } catch (e) {
+        result = "FAIL"
       }
-      postToBuildMonitor("COMPLETED", "SUCCESS", buildJobUrl)
+      postToBuildMonitor("COMPLETED", result, buildJobUrl)
     }
     stage('Test') {
       steps {
