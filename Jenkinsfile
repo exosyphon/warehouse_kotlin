@@ -39,13 +39,15 @@ pipeline {
     stage('RequestDeployStaging') {
       agent none
       steps {
-        def DEPLOY_TO_STAGING =  input {
+        script {
+        env.DEPLOY_TO_STAGING =  input {
                                                          message "Deploy to Staging?"
                                                          ok "y"
                                                          parameters {
                                                              string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
                                                          }
                                                      }
+        }
       }
     }
     stage('DeployStaging') {
@@ -60,13 +62,15 @@ pipeline {
     stage('RequestDeployProduction') {
       agent none
       steps {
-        def DEPLOY_TO_PRODUCTION =  input {
+              script {
+  env.DEPLOY_TO_PRODUCTION =  input {
                                                             message "Deploy to Production?"
                                                             ok "y"
                                                             parameters {
                                                                 string(name: 'IS_APPROVED', defaultValue: 'y', description: 'Deploy this build?')
                                                             }
                                                         }
+      }
       }
     }
     stage('DeployProduction') {
