@@ -36,9 +36,7 @@ pipeline {
   }
 }
 
-pipeline {
-    agent none
-    stages {
+node {
     stage('RequestDeployStaging') {
       agent none
       steps {
@@ -75,7 +73,6 @@ pipeline {
           echo 'Deploying to Production'
         }
     }
-  }
 }
 
 def wrapCommands(commands, jobUrl) {
