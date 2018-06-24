@@ -44,6 +44,7 @@ pipeline {
         env.DEPLOY_TO_STAGING =  input(message: 'Deploy to Staging?', ok: 'Yes', parameters: [booleanParam(description: 'Deploy this build?',name: 'Yes?')])
       }
     }
+    }
     stage('DeployStaging') {
         agent any
         when {
