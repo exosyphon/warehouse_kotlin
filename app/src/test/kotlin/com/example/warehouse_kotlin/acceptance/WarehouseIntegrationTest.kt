@@ -1,5 +1,6 @@
 package com.example.warehouse_kotlin.acceptance
 
+import com.example.warehouse_kotlin.WarehouseKotlinApplication
 import com.example.warehouse_kotlin.models.Warehouse
 import com.example.warehouse_kotlin.repositories.WarehouseRepository
 import org.junit.jupiter.api.*
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import testutilities.TestUtils
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = arrayOf(WarehouseKotlinApplication::class), webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class WarehouseIntegrationTest {

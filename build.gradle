@@ -13,57 +13,56 @@ buildscript {
 	}
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+subprojects {
+	apply plugin: 'kotlin'
+	apply plugin: 'io.spring.dependency-management'
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
-compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+	group = 'com.example.warehouse'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
+	compileKotlin {
+		kotlinOptions {
+			freeCompilerArgs = ["-Xjsr305=strict"]
+			jvmTarget = "1.8"
+		}
 	}
-}
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+	compileTestKotlin {
+		kotlinOptions {
+			freeCompilerArgs = ["-Xjsr305=strict"]
+			jvmTarget = "1.8"
+		}
 	}
-}
 
-test {
-	useJUnitPlatform()
-}
-
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	compile(
-			'org.springframework.boot:spring-boot-starter-data-jpa',
-			'org.springframework.boot:spring-boot-starter-web',
-			'com.fasterxml.jackson.module:jackson-module-kotlin',
-			"org.jetbrains.kotlin:kotlin-stdlib-jdk8",
-			'org.jetbrains.kotlin:kotlin-reflect',
-			'commons-io:commons-io:2.5',
-			'org.jsoup:jsoup:1.11.2',
-			'org.flywaydb:flyway-core',
-			'org.springframework.boot:spring-boot-starter-actuator'
-	)
-	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('org.postgresql:postgresql')
-	testCompile(
-			"com.google.code.gson:gson:2.8.0",
-			"org.mockito:mockito-junit-jupiter:2.18.0"
-	)
-	testCompile('org.springframework.boot:spring-boot-starter-test') {
-		exclude module: 'junit'
+	test {
+		useJUnitPlatform()
 	}
-	testImplementation('org.junit.jupiter:junit-jupiter-api')
-	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		compile(
+				'com.fasterxml.jackson.module:jackson-module-kotlin',
+				"org.jetbrains.kotlin:kotlin-stdlib-jdk8",
+				'org.jetbrains.kotlin:kotlin-reflect',
+		)
+		runtime('org.postgresql:postgresql')
+		testCompile(
+				"com.google.code.gson:gson:2.8.0",
+				"org.mockito:mockito-junit-jupiter:2.18.0"
+		)
+		testCompile('org.springframework.boot:spring-boot-starter-test') {
+			exclude module: 'junit'
+		}
+		testImplementation('org.junit.jupiter:junit-jupiter-api')
+		testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+	}
+
+	sourceSets {
+		main.kotlin.srcDir "src/main/kotlin"
+		test.kotlin.srcDir "src/test/kotlin"
+
+		test.resources.srcDir "src/test/resources"
+	}
 }

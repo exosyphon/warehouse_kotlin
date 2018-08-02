@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-      echo 'testing'
+      echo 'com.example.warehouse_kotlin.testing'
       }
     }
     stage('E2E') {

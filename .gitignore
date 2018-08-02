@@ -22,7 +22,7 @@ yarn-error.log*
 
 
 .gradle
-/build/
+**/build/*
 /classes/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -40,7 +40,7 @@ yarn-error.log*
 *.iws
 *.iml
 *.ipr
-/out/
+**/out/*
 
 ### NetBeans ###
 /nbproject/private/

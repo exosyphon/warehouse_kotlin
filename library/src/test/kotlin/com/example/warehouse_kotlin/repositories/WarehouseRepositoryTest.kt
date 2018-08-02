@@ -1,5 +1,6 @@
 package com.example.warehouse_kotlin.repositories
 
+import com.example.warehouse_kotlin.TestingApplication
 import com.example.warehouse_kotlin.models.Warehouse
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -13,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest
+@SpringBootTest(classes = arrayOf(TestingApplication::class))
 @ActiveProfiles("test")
 class WarehouseRepositoryTest {
 
