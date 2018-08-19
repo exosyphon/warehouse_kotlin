@@ -1,7 +1,6 @@
 require 'capybara/rspec'
 require 'active_record'
 require 'yaml'
-require 'database_cleaner'
 
 file_path = File.join(File.expand_path("..", File.expand_path(File.dirname(File.dirname(__FILE__)))), "app/src/main/resources/application-local.yml")
 contents = YAML.load_file(file_path)
@@ -31,8 +30,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    DatabaseCleaner.clean_with(:truncation, {except: %w[flyway_schema_history]})
-
     $backend.stop
     $frontend.stop
   end
