@@ -3,7 +3,7 @@ require 'active_record'
 require 'yaml'
 require 'database_cleaner'
 
-file_path = File.join(File.expand_path("..", File.expand_path(File.dirname(File.dirname(__FILE__)))), "src/main/resources/application-local.yml")
+file_path = File.join(File.expand_path("..", File.expand_path(File.dirname(File.dirname(__FILE__)))), "app/src/main/resources/application-local.yml")
 contents = YAML.load_file(file_path)
 
 ActiveRecord::Base.establish_connection(contents['spring']['datasource']['url'].sub! 'jdbc:', '')
@@ -31,9 +31,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    DatabaseCleaner.strategy = :truncation, {except: %w[flyway_schema_history]}
     DatabaseCleaner.clean_with(:truncation, {except: %w[flyway_schema_history]})
-    DatabaseCleaner.clean
 
     $backend.stop
     $frontend.stop
