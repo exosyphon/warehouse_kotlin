@@ -19,15 +19,15 @@ SET row_security = off;
 -- Data for Name: warehouse; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.warehouse (id, name, address, city, state, zip) VALUES (75, 'warehouse 1', '1234 Bellvedere Way', 'Tom Collins', 'TX', '79707');
-INSERT INTO public.warehouse (id, name, address, city, state, zip) VALUES (76, 'warehouse 2', '665 1st St', 'San Francisco', 'CA', '90210');
+INSERT INTO public.warehouse (id, name, address, city, state, zip) VALUES (1, 'warehouse 1', '1234 Bellvedere Way', 'Tom Collins', 'TX', '79707');
+INSERT INTO public.warehouse (id, name, address, city, state, zip) VALUES (2, 'warehouse 2', '665 1st St', 'San Francisco', 'CA', '90210');
 
 
 --
 -- Name: warehouse_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.warehouse_id_seq', 74, true);
+SELECT pg_catalog.setval('public.warehouse_id_seq', 2, true);
 
 
 --

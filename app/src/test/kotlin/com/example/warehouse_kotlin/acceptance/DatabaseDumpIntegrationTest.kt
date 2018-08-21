@@ -34,7 +34,7 @@ class DatabaseDumpIntegrationTest {
     @Autowired
     private lateinit var warehouseRepository: WarehouseRepository
 
-    @BeforeEach
+    @BeforeAll
     fun setup() {
         val connection = dataSource.connection
         ScriptUtils.executeSqlScript(connection, ClassPathResource("data.sql"))
