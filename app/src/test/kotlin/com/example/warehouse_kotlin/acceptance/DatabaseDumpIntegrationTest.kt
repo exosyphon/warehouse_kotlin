@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.io.ClassPathResource
+import org.springframework.jdbc.datasource.init.ScriptUtils
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
@@ -16,34 +17,31 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import testutilities.TestUtils
+import javax.sql.DataSource
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(classes = arrayOf(WarehouseKotlinApplication::class), webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class WarehouseIntegrationTest {
+class DatabaseDumpIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
+    @Autowired
+    private lateinit var dataSource: DataSource
 
     @Autowired
     private lateinit var warehouseRepository: WarehouseRepository
 
     @BeforeEach
     fun setup() {
-        warehouseRepository.saveAll(
-                listOf(
-                        Warehouse("warehouse 1", "1234 Bellvedere Way", "Tom Collins", "TX", "79707"),
-                        Warehouse("warehouse 2", "665 1st St", "San Francisco", "CA", "90210")
-                )
-        )
+        val connection = dataSource.connection
+        ScriptUtils.executeSqlScript(connection, ClassPathResource("data.sql"))
     }
 
     @AfterAll
     fun tearDown() {
-        val cmdScript = arrayOf("/bin/sh", ClassPathResource("update_warehouse_data.sh").uri.path)
-        Runtime.getRuntime().exec(cmdScript)
         warehouseRepository.deleteAll()
     }
 
