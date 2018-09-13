@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import testutilities.TestUtils
+import java.util.concurrent.TimeUnit
 import javax.sql.DataSource
 
 @ExtendWith(SpringExtension::class)
@@ -49,7 +50,8 @@ class WarehouseIntegrationTest {
     @AfterAll
     fun tearDown() {
         val cmdScript = arrayOf("/bin/sh", ClassPathResource("update_warehouse_data.sh").uri.path)
-        Runtime.getRuntime().exec(cmdScript)
+        val process = Runtime.getRuntime().exec(cmdScript)
+        process.waitFor(5L, TimeUnit.SECONDS)
         warehouseRepository.deleteAll()
     }
 

@@ -2,7 +2,7 @@ require 'capybara/rspec'
 require 'active_record'
 require 'yaml'
 
-file_path = File.join(File.expand_path("..", File.expand_path(File.dirname(File.dirname(__FILE__)))), "app/src/main/resources/application-local.yml")
+file_path = File.join(File.expand_path("..", File.expand_path(File.dirname(File.dirname(__FILE__)))), "app/src/main/resources/application-e2e.yml")
 contents = YAML.load_file(file_path)
 
 ActiveRecord::Base.establish_connection(contents['spring']['datasource']['url'].sub! 'jdbc:', '')
@@ -23,7 +23,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 
   config.before(:suite) do
-    $backend = Application.new('backend', 'cd ../; SPRING_PROFILES_ACTIVE=local ./gradlew bootrun 1>/dev/null', "curl http://localhost:#{backend_port}/actuator/health")
+    $backend = Application.new('backend', 'cd ../; SPRING_PROFILES_ACTIVE=e2e ./gradlew bootrun 1>/dev/null', "curl http://localhost:#{backend_port}/actuator/health")
     $frontend = Application.new('frontend', 'cd ../frontend; yarn serveE2E 1>/dev/null', "curl #{frontend_url}")
     $backend.start
     $frontend.start

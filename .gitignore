@@ -49,3 +49,5 @@ yarn-error.log*
 /dist/
 /nbdist/
 /.nb-gradle/
+
+pg_data/*

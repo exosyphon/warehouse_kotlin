@@ -1,5 +1,8 @@
 spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         temp:
@@ -8,3 +11,18 @@ spring:
     out-of-order: true
     baseline-on-migrate: true
     baseline-version: 1
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pivotal?user=postgres&password=postgres
+---
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:postgresql://postgres:5432/pivotal?user=postgres&password=postgres
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pivotal_test?user=postgres&password=postgres
