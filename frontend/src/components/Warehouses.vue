@@ -1,9 +1,18 @@
 <template>
-  <ul class="warehouses">
-    <li class="warehouse" v-for="warehouse in warehouses" :key="warehouse.id">
-      {{warehouse.name}}
-    </li>
-  </ul>
+  <div>
+    <div>
+      <router-link to="/">Warehouses AGAIN</router-link>
+    </div>
+    <div>
+      <router-link class="other-warehouses" to="/other-warehouses">Other Warehouses</router-link>
+    </div>
+    <router-view></router-view>
+    <ul class="warehouses">
+      <li class="warehouse" v-for="warehouse in warehouses" :key="warehouse.id">
+        {{warehouse.name}}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
