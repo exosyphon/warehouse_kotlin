@@ -25,7 +25,7 @@ export default {
     {},
     {
       query() {
-        return this.$route.query
+        return window.location.pathname
       }
     },
     mapGetters({
