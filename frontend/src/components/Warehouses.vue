@@ -6,6 +6,7 @@
     <div>
       <router-link class="other-warehouses" to="/other-warehouses">Other Warehouses</router-link>
     </div>
+    <div>{{this.query}}</div>
     <router-view></router-view>
     <ul class="warehouses">
       <li class="warehouse" v-for="warehouse in warehouses" :key="warehouse.id">
@@ -20,9 +21,17 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: "Warehouses",
-  computed: mapGetters({
-    warehouses: 'getWarehouses'
-  }),
+  computed: Object.assign(
+    {},
+    {
+      query() {
+        return this.$route.query
+      }
+    },
+    mapGetters({
+      warehouses: 'getWarehouses'
+    })
+  ),
   created() {
     this.$store.dispatch('FETCH_WAREHOUSES')
   }
