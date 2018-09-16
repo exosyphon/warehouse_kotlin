@@ -10,4 +10,4 @@ done
 
 echo "\nPostgres is available: continuing with database setup...."
 
-SPRING_PROFILES_ACTIVE=container ./gradlew bootRun
+./gradlew bootRun

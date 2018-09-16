@@ -21,8 +21,3 @@ spring:
   profiles: container
   datasource:
     url: jdbc:postgresql://postgres:5432/pivotal?user=postgres&password=postgres
----
-spring:
-  profiles: test
-  datasource:
-    url: jdbc:postgresql://postgres:5432/pivotal_test?user=postgres&password=postgres
