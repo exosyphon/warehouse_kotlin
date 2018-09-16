@@ -10,4 +10,7 @@ done
 
 echo "\nPostgres is available: continuing with database setup...."
 
+cd frontend
+yarn serve &
+cd ..
 ./gradlew bootRun
