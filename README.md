@@ -1,10 +1,10 @@
 # Prerequisites
  * git
  * jdk 8.171 or above
- * postgres
- * rvm
- * ruby version in .ruby-version file under e2e directory
- * npm
+ * postgres 9.6+ (or use docker image)
+ * rvm (or use docker image)
+ * ruby version in .ruby-version file under e2e directory (or use docker image)
+ * npm (or use docker image)
  
 # Building
  * ./gradlew build
@@ -16,7 +16,7 @@
  * cd frontend; yarn test
  
 # Running E2E tests
- * cd e2e; rspec
+ * cd e2e; bundle exec rspec
  
 # Docker
  * Build containers: docker-compose build
