@@ -18,12 +18,14 @@ services:
       - type: bind
         source: ./
         target: /app
+      - ~/.gradle:/root/.gradle
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_HOST=postgres
     ports:
       - "8080:8080"
+      - "8081:8081"
     depends_on:
       - postgres
     command:

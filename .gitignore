@@ -51,3 +51,5 @@ yarn-error.log*
 /.nb-gradle/
 
 pg_data/*
+
+frontend/dist/*

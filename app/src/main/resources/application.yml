@@ -25,4 +25,4 @@ spring:
 spring:
   profiles: test
   datasource:
-    url: jdbc:postgresql://localhost:5432/pivotal_test?user=postgres&password=postgres
+    url: jdbc:postgresql://postgres:5432/pivotal_test?user=postgres&password=postgres
