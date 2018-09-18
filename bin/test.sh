@@ -13,6 +13,8 @@ echo "\nPostgres is available: continuing with database setup...."
 
 ./gradlew test
 cd frontend
+yarn install
 yarn test
 cd ../e2e
+bundle
 bundle exec rspec
