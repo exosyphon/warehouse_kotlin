@@ -37,10 +37,6 @@ RUN echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" 
 RUN apt-get -y update
 RUN apt-get -y install google-chrome-stable
 
-RUN mkdir /app
-COPY . /app
-WORKDIR /app
-
 RUN mkdir -p /root/.gradle
 ENV HOME /root
 VOLUME /root/.gradle
@@ -48,9 +44,6 @@ VOLUME /root/.gradle
 ENV SPRING_PROFILES_ACTIVE container
 RUN export SPRING_PROFILES_ACTIVE
 
-RUN ./gradlew assemble
-RUN cd /app/frontend;yarn install
-RUN /bin/bash -l -c "source ~/.bashrc;cd /app/e2e;bundle install"
-
+WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
