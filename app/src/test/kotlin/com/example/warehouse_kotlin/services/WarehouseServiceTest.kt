@@ -5,6 +5,7 @@ import com.example.warehouse_kotlin.repositories.WarehouseRepository
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -35,8 +36,8 @@ class WarehouseServiceTest {
         fun `should deserialize an object with local date and local time`() {
             val mapper = ObjectMapper()
             mapper.registerModule(JavaTimeModule())
-            val ticket = mapper.readValue("""{ "contact_email": "contact@ema.il", "date_opened": "2017-11-13", "time_opened": "00:04:00.456" }""", Ticket::class.java)
-            assert("$ticket" == "Ticket(contactEmail=contact@ema.il, dateOpened=2017-11-13, timeOpened=00:04:00.456)")
+            val ticket = mapper.readValue<List<Ticket>>("""[{ "contact_email": "contact@ema.il", "date_opened": "2017-11-13", "time_opened": "00:04:00.456" }]""")
+            assert("$ticket" == "[Ticket(contactEmail=contact@ema.il, dateOpened=2017-11-13, timeOpened=00:04:00.456)]")
         }
     }
 }
