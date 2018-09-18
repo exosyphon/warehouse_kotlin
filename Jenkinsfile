@@ -10,7 +10,7 @@ pipeline {
                         {
                         sh '''./gradlew clean assemble'''
                         archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true},
-  "http://autobotmonitor.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
+  "http://something.cfapps.io/projects/628379d9-20aa-49f0-861c-fec2f2a71d4d/status"
 )
       }
     }
@@ -31,7 +31,7 @@ pipeline {
                 echo 'Deploying to Dev'
                 //pushToCloudFoundry cloudSpace: 'playground', credentialsId: '6ea07003-dece-40c1-98fc-a5818957fca2', organization: 'pivot-acourter', target: 'api.run.pcfbeta.io'
                 },
-                "http://autobotmonitor.cfapps.io/projects/0a389362-c1da-4c6d-821b-6ca396d97f2a/status"
+                "http://something.cfapps.io/projects/0a389362-c1da-4c6d-821b-6ca396d97f2a/status"
 )
       }
     }
