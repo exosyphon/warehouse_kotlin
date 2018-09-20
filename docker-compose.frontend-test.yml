@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  frontend:
+    image: kkarczmarczyk/node-yarn
+    volumes:
+      - type: bind
+        source: ./
+        target: /workspace
+    ports:
+      - "8081:8081"
+    command:
+      - ./bin/test_frontend.sh

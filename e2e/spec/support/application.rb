@@ -4,15 +4,13 @@ class Application
   end
 
   def start
-    puts "starting #{name}"
-    @pid = Process.spawn(@start_command, pgroup: true)
+    puts "starting health check for #{name}"
     until is_healthy?
       sleep 0.5
     end
   end
 
   def stop
-    Process.kill(9, -pid)
   end
 
   private

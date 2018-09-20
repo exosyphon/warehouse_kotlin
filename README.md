@@ -30,5 +30,9 @@
    - docker rm $(docker ps -aq)
    - docker rmi $(docker images -q)
  * To run all tests in a CI style
-   - docker-compose -f ./docker-compose.test.yml up --abort-on-container-exit 
+   - docker-compose -f ./docker-compose.frontend-test.yml up --abort-on-container-exit 
+   - docker wait warehouse_kotlin_app_1
+   - docker-compose -f ./docker-compose.backend-test.yml up --abort-on-container-exit 
+   - docker wait warehouse_kotlin_app_1
+   - docker-compose -f ./docker-compose.e2e.yml up --abort-on-container-exit 
    - docker wait warehouse_kotlin_app_1

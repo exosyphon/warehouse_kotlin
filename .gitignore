@@ -53,3 +53,5 @@ yarn-error.log*
 pg_data/*
 
 frontend/dist/*
+
+e2e/bundle_cache

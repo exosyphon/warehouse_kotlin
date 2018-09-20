@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'Warehouses Page' do
 	before :all do
+	  Warehouse.delete_all
 	  @records = [
 		Warehouse.create(name: 'warehouse 1'),
 		Warehouse.create(name: 'warehouse 2'),
