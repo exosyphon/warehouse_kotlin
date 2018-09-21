@@ -7,6 +7,5 @@ RUN apt-get -y install google-chrome-stable
 
 RUN mkdir /app
 COPY . /app
-WORKDIR /app
 
 WORKDIR /app
