@@ -1,8 +1,9 @@
 FROM openjdk:8u181
 
 RUN apt-get update
-RUN apt-get install -y build-essential inotify-tools postgresql-client openssl libpq-dev && \
-                                                                                                             apt-get clean;
+RUN apt-get install -y build-essential inotify-tools postgresql-client libpq-dev && \
+    apt-get clean;
+
 RUN mkdir -p /root/.gradle
 ENV HOME /root
 VOLUME /root/.gradle
