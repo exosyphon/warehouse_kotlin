@@ -4,6 +4,10 @@ pipeline {
     stage('Lower environment build/test/deploy') {
     agent any
     stages {
+    //stage(Checkout) {
+      //steps {
+      //}
+    //}
     stage('Build') {
       steps {
         wrapCommands(
@@ -38,6 +42,9 @@ pipeline {
     }
     }
     stage('Deploy to Higher environments') {
+    when {
+      equals expected: 'SUCCESS', actual: currentBuild.result
+    }
     stages {
         stage('RequestDeployStaging') {
           agent none
