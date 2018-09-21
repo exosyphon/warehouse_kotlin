@@ -5,4 +5,8 @@ RUN echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" 
 RUN apt-get -y update
 RUN apt-get -y install google-chrome-stable
 
+RUN mkdir /app
+COPY . /app
+WORKDIR /app
+
 WORKDIR /app

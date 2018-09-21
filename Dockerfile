@@ -10,5 +10,9 @@ VOLUME /root/.gradle
 ENV SPRING_PROFILES_ACTIVE container
 RUN export SPRING_PROFILES_ACTIVE
 
+RUN mkdir /app
+COPY . /app
+WORKDIR /app
+
 WORKDIR /app
 EXPOSE 8080
