@@ -25,15 +25,10 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Capybara.current_session.current_window.resize_to(2_500, 2_500)
-    $backend = Application.new('backend', 'cd ../; SPRING_PROFILES_ACTIVE=e2e ./gradlew bootrun 1>/dev/null', "curl http://localhost:#{backend_port}/actuator/health")
-    $frontend = Application.new('frontend', 'cd ../frontend; yarn serveE2E 1>/dev/null', "curl #{frontend_url}")
+    $backend = Application.new('backend', "curl http://localhost:#{backend_port}/actuator/health")
+    $frontend = Application.new('frontend', "curl #{frontend_url}")
     $backend.start
     $frontend.start
-  end
-
-  config.after(:suite) do
-    $backend.stop
-    $frontend.stop
   end
 end
 

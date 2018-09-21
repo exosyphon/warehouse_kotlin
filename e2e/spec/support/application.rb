@@ -1,6 +1,7 @@
 class Application
-  def initialize(name, start_command, health_check_command)
-    @name, @start_command, @health_check_command = name, start_command, health_check_command
+  def initialize(name, health_check_command)
+    @name = name
+    @health_check_command = health_check_command
   end
 
   def start
@@ -10,12 +11,9 @@ class Application
     end
   end
 
-  def stop
-  end
-
   private
 
-  attr_reader :name, :start_command, :health_check_command, :pid
+  attr_reader :name, :health_check_command
 
   def is_healthy?
     system(health_check_command)
