@@ -35,11 +35,11 @@ services:
         source: ./
         target: /workspace
     network_mode: service:e2e
+    working_dir: /workspace/frontend
     depends_on:
       - postgres
       - backend
-    command:
-      - ./bin/run_frontend.sh
+    command: bash -c "yarn install && yarn serve"
   e2e:
     build:
       context: ./
@@ -49,12 +49,8 @@ services:
         source: ./
         target: /app
       - ./e2e/bundle_cache:/usr/local/bundle
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_HOST=postgres
+    working_dir: /app/e2e
     ports:
       - "8080:8080"
       - "8081:8081"
-    command:
-      - ./bin/run_e2e.sh
+    command: bash -c "bundle install && bundle exec rspec"

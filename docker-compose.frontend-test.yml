@@ -6,7 +6,7 @@ services:
       - type: bind
         source: ./
         target: /workspace
+    working_dir: /workspace/frontend
     ports:
       - "8081:8081"
-    command:
-      - ./bin/test_frontend.sh
+    command: bash -c "yarn install && yarn test"
