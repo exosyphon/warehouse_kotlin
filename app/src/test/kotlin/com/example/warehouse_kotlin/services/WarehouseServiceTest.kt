@@ -39,6 +39,25 @@ class WarehouseServiceTest {
             val ticket = mapper.readValue<List<Ticket>>("""[{ "contact_email": "contact@ema.il", "date_opened": "2017-11-13", "time_opened": "00:04:00.456" }]""")
             assert("$ticket" == "[Ticket(contactEmail=contact@ema.il, dateOpened=2017-11-13, timeOpened=00:04:00.456)]")
         }
+
+        @Test
+        fun `things`() {
+            Tester().derp()
+        }
+    }
+}
+
+class Tester(private val factoryMethod: () -> Unit = Bob.Companion::getInstance) {
+    fun derp() {
+        factoryMethod.invoke()
+    }
+}
+
+class Bob {
+    companion object {
+        fun getInstance() {
+            println("tom")
+        }
     }
 }
 
