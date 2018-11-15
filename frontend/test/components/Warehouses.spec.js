@@ -38,4 +38,8 @@ describe('Warehouses', () => {
 
     expect(wrapper.vm.$route.path).toEqual("/other-warehouses")
   })
+
+  it('renders the correct markup', () => {
+    expect(wrapper.find('.modal').html()).toContain("Preferences")
+  })
 })
