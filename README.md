@@ -36,3 +36,5 @@
    - docker-compose -f ./docker-compose.e2e.yml up --abort-on-container-exit 
    - docker wait warehouse_kotlin_app_1
 
+#Git Hooks
+git config core.hooksPath hooks
